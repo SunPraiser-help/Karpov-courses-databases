@@ -1,0 +1,6 @@
+Напишите SQL-запрос, который выводит имя (name), год рождения (year_of_birth) и год смерти (year_of_death) из таблицы persons.
+
+SELECT name,
+       year_of_birth,
+       year_of_death
+FROM   persons;
