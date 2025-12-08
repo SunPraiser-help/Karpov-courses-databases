@@ -1,0 +1,14 @@
+Напишите SQL-запрос, который выведет из таблицы persons:
+
+— число людей в таблице persons (алиас person_cnt)
+
+— количество людей, у которых в списке профессий есть 'actor' (алиас actor_cnt)
+
+— количество людей, у которых в списке профессий есть 'actress' (алиас actress_cnt)
+
+SELECT count(1) as person_cnt,
+       sum(case when professions like '%actor%' then 1
+                else 0 end) as actor_cnt,
+       sum(case when professions like '%actress%' then 1
+                else 0 end) as actress_cnt
+FROM   persons;

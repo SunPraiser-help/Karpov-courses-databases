@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который выводит id произведений из таблицы titles, для которых нет записей в таблице episodes.
+
+ Для этого объедините эти две таблицы по полю title_id и выберите те записи, для которых нет соответствий в таблице episodes.
+
+Результат отсортируйте по возрастанию id
+
+SELECT t.id
+FROM   titles as t
+    LEFT JOIN episodes as e
+        ON e.title_id = t.id
+WHERE  e.title_id is null
+ORDER BY 1;

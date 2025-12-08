@@ -1,0 +1,19 @@
+Напишите SQL-запрос, который посчитает статистику по постоянным клиентам
+
+Используйте таблицу loyal_sales
+Выведите только тех гостей, которые были в кофейне не менее 60 разных календарных дней
+Отсортируйте результат по номеру карты
+Поля для вывода:
+
+номер карты
+потраченная сумма (our_price * quantity), назовите поле total_revenue
+суммарная скидка (discount * quantity), назовите поле total_discount
+количество чеков, назовите поле check_cnt
+
+SELECT card_num,
+       sum(our_price * quantity) as total_revenue,
+       sum(discount * quantity) as total_discount,
+       count(distinct check_num) as check_cnt
+FROM   loyal_sales
+GROUP BY card_num having count(distinct date) > 60
+ORDER BY card_num

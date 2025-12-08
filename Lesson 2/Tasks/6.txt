@@ -1,0 +1,5 @@
+Напишите SQL-запрос, который выводит количество лет, прошедших с выхода произведения (поле year_of_start таблицы titles) до текущего года. Назовите результирующее поле years.
+
+SELECT extract(year
+FROM   now()) - year_of_start as years
+FROM   titles;

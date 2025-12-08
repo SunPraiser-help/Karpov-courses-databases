@@ -1,0 +1,17 @@
+Напишите SQL-запрос, который с помощью рекурсии выведет все года с 2000 по 2032 и посчитает количество произведений  с year_of_start, соответствующих каждому выведенному году.
+
+Назовите поля year и count
+
+Отсортируйте результат по возрастанию year
+
+with recursive years as (SELECT 2000 as year UNION all
+SELECT year + 1
+                         FROM   years
+                         WHERE  year < 2032)
+SELECT year,
+       count(t.id)
+FROM   titles as t
+    RIGHT JOIN years
+        ON t.year_of_start = year
+GROUP BY year
+ORDER BY 1;

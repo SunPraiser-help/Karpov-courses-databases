@@ -1,0 +1,17 @@
+Напишите SQL-запрос, который выведет следующие метрики из таблицы persons:
+
+— количество строк (назовите поле persons_cnt)
+
+— максимальный возраст (назовите поле max_age)
+
+— минимальный возраст (назовите поле min_age)
+
+— средний возраст (назовите поле avg_age)
+
+В случае, если в строке не указан year_of_death, замените его на текущий год.
+
+SELECT count(1) as persons_cnt,
+       max(coalesce(year_of_death, date_part('year', now())::int) - year_of_birth) as max_age,
+       min(coalesce(year_of_death, date_part('year', now())::int) - year_of_birth) as min_age,
+       avg(coalesce(year_of_death, date_part('year', now())::int) - year_of_birth) as avg_age
+FROM   persons;

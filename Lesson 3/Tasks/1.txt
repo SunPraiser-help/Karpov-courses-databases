@@ -1,0 +1,10 @@
+Напишите SQL-запрос, который находит строку в таблице persons с именем (name) Дженна Ортега ('Jenna Ortega').
+
+Поля в запросе: name, year_of_birth, year_of_death, professions.
+
+SELECT name,
+       year_of_birth,
+       year_of_death,
+       professions
+FROM   persons
+WHERE  name = 'Jenna Ortega';

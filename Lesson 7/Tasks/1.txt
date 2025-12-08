@@ -1,0 +1,39 @@
+Напишите SQL-запрос, который выведет:
+
+— название сериала (назовите поле series_name)
+
+— название эпизода (назовите поле episode_name), для этого необходимо выполнить коррелированный подзапрос, обратившись к внешней таблице episodes
+
+— идентификатор эпизода (назовите поле episode_id)
+
+— номер сезона
+
+— номер эпизода в сезоне
+
+— сквозной номер (назовите поле rn)
+
+Все названия хранятся в поле original_title таблицы titles
+
+Партицирование сделайте по parent_id 
+
+Серии с пустыми значениями сезона и эпизода показывать не нужно
+
+Результат отсортируйте по возрастанию episode_id
+
+with cte as (SELECT t.original_title as series_name,
+                    (SELECT t.original_title
+              FROM   titles as t
+              WHERE  t.id = e.title_id) as episode_name, e.parent_id, e.season, e.episode, e.title_id
+             FROM   episodes as e join titles as t
+                     ON t.id = e.parent_id)
+SELECT series_name,
+       episode_name,
+       title_id as episode_id,
+       season,
+       episode,
+       row_number() OVER (PARTITION BY parent_id
+                          ORDER BY season, episode) as rn
+FROM   cte
+WHERE  season is not null
+   and episode is not null
+ORDER BY title_id;

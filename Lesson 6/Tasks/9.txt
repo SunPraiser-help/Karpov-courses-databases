@@ -1,0 +1,11 @@
+Выберите имена (без фамилий) из таблицы persons, которых в таблице persons больше 1000. В качестве ответа напишите SQL-запрос, который выведет строки из таблицы persons про людей с такими именами.
+
+Результат отсортируйте по возрастанию id
+
+SELECT *
+FROM   persons
+WHERE  split_part(name, ' ', 1) in (SELECT split_part(name, ' ', 1)
+                                    FROM   persons
+                                    WHERE  position(' ' in name) > 0
+                                    GROUP BY 1 having count(1) > 1000)
+ORDER BY 1;

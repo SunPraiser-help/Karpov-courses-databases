@@ -1,0 +1,8 @@
+Напишите SQL-запрос, который выберет все уникальные пары значений полей type и genres из таблицы titles
+
+Результат отсортируйте по возрастанию type и genres
+
+SELECT DISTINCT type,
+                genres
+FROM   titles
+ORDER BY 1, 2;

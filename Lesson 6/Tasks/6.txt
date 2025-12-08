@@ -1,0 +1,7 @@
+Напишите SQL-запрос, который с помощью подзапроса в блоке WHERE выведет строку таблицы titles, у которой максимальный рейтинг (avg_rating из таблицы ratings) и максимальное количество голосов (vote_cnt) среди других произведений с тем же рейтингом.
+
+SELECT *
+FROM   titles
+WHERE  id in (SELECT title_id
+              FROM   ratings
+              ORDER BY avg_rating desc, vote_cnt desc limit 1);

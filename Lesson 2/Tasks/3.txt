@@ -1,0 +1,15 @@
+Напишите SQL-запрос, который выведет:
+
+— поле name из таблицы persons
+
+— количество символов в поле name (назовите его len)
+
+— поле name, переведённое в верхний регистр (назовите его up)
+
+— номер символа с первым вхождением буквы a (назовите его a_pos)
+
+SELECT name,
+       length(name) as len,
+       upper(name) as up,
+       position('a' in name) as a_pos
+FROM   persons;

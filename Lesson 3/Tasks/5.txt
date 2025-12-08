@@ -1,0 +1,5 @@
+Напишите SQL-запрос, который вернёт топ-10 строк с максимальным количеством голосов (vote_cnt) из таблицы рейтингов ratings. 
+
+SELECT *
+FROM   ratings r
+ORDER BY vote_cnt desc limit 10;

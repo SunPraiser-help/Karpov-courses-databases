@@ -1,0 +1,5 @@
+Напишите SQL-запрос, который найдет в таблице titles строки, в которых в названии (original_title) указано Wednesday.(без других словоформ, вроде Wednesday's Child)
+
+SELECT *
+FROM   titles
+WHERE  original_title = 'Wednesday';

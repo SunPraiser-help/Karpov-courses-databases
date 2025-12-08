@@ -1,0 +1,13 @@
+Напишите SQL-запрос, который выведет оригинальное название (original_title), год начала (year_of_start) и количество эпизодов произведений, у которых больше 500 серий, отсортировав их по убыванию количества серий. Для этого используйте подзапрос к таблице episodes с группировкой по полю parent_id. Выведите только строки, которые есть в таблице titles и в сгруппированной таблице.
+
+Назовите поле с количеством эпизодов произведений ep_cnt. Отсортируйте результат по этому полю в порядке убывания.
+
+SELECT t.original_title,
+       t.year_of_start,
+       e.ep_cnt
+FROM   titles as t join (SELECT parent_id,
+                                count(1) as ep_cnt
+                         FROM   episodes as e
+                         GROUP BY parent_id having count(1) > 500) as e
+        ON t.id = e.parent_id
+ORDER BY ep_cnt desc;

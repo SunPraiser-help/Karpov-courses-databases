@@ -1,0 +1,45 @@
+Напишите SQL-запрос, который выведет:
+
+— название сериала (назовите поле series_name)
+
+— название эпизода (назовите поле episode_name)
+
+— идентификатор эпизода (назовите поле episode_id)
+
+— номер сезона
+
+— номер эпизода в сезоне
+
+— сквозной номер (назовите поле num)
+
+— максимальный рейтинг эпизодов до этой серии включительно (назовите поле max_rating)
+
+— количество голосов, отданных за сериал до этой серии включительно (назовите поле vote_cnt)
+
+Серии с пустыми значениями сезона и эпизода показывать не нужно.
+
+Результат отсортируйте по возрастанию episode_id.
+
+Используйте Window Frame
+
+with cte as (SELECT t.original_title as series_name,
+                    (SELECT t.original_title
+              FROM   titles as t
+              WHERE  t.id = e.title_id) as episode_name, e.parent_id, e.season, e.episode, e.title_id, r.avg_rating, r.vote_cnt
+             FROM   episodes as e join ratings as r
+                     ON e.title_id = r.title_id join titles as t
+                     ON t.id = e.parent_id)
+SELECT series_name,
+       episode_name,
+       title_id as episode_id,
+       season,
+       episode,
+       row_number() OVER w as num,
+       max(avg_rating) OVER w as max_rating,
+       sum(vote_cnt) OVER w as vote_cnt
+FROM   cte
+WHERE  season is not null
+   and episode is not null window w as (
+PARTITION BY parent_id
+ORDER BY season, episode)
+ORDER BY title_id;

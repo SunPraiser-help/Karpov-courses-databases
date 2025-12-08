@@ -1,0 +1,13 @@
+Напишите SQL-запрос, который выведет сумму заработанных кофейней денег на каждый день.
+
+Используйте таблицу sales
+Переведите datetime в date
+Для подсчета суммы умножьте price_with_discount на quantity
+Назовите поле с суммой total_revenue, поле с датой назовите date
+Отсортируйте результат по дате в обратном порядке
+
+SELECT datetime::date as date,
+       sum(price_with_discount * quantity) as total_revenue
+FROM   sales
+GROUP BY date
+ORDER BY date desc

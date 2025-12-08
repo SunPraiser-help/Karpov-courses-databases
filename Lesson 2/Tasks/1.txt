@@ -1,0 +1,17 @@
+Напишите SQL-запрос, который выводит из таблицы ratings:
+
+— значение поля avg_rating, умноженное на 100
+
+— ближайшее большее целое поля avg_rating
+
+— ближайшее меньшее целое поля avg_rating
+
+— округлённое значение поля vote_cnt, делённого на 1000
+
+Назовите вычисляемые поля column_1, column_2, column_3, column_4
+
+SELECT avg_rating * 100 as column_1,
+       ceil(avg_rating) as column_2,
+       floor(avg_rating) as column_3,
+       round(vote_cnt / 1000) as column_4
+FROM   ratings;

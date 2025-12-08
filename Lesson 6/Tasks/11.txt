@@ -1,0 +1,13 @@
+Напишите SQL-запрос, который выведет имена людей (поле name из таблицы persons), которые судя по таблице principals участвовали в создании 10 самых высокооценённых произведений (топ 10 по рейтингу (avg_rating) и количеству набранных голосов из таблицы ratings). Итоговый результат отсортируйте по name.
+
+with the_best_id as (SELECT title_id
+                     FROM   ratings
+                     ORDER BY avg_rating desc, vote_cnt desc limit 10), prin as (SELECT person_id
+                                                            FROM   principals
+                                                            WHERE  title_id in (SELECT title_id
+                                                                                FROM   the_best_id))
+SELECT name
+FROM   persons
+WHERE  id in (SELECT person_id
+              FROM   prin)
+ORDER BY name;

@@ -1,0 +1,10 @@
+Напишите SQL-запрос, который выведет названия (original_title) произведений, продолжительностью между floor и ceil средней продолжительности произведений в таблице titles.
+
+Результат отсортируйте по возрастанию original_title
+
+SELECT original_title
+FROM   titles
+WHERE  run_time between (SELECT floor(avg(titles.run_time))
+                         FROM   titles) and (SELECT ceil(avg(titles.run_time))
+                    FROM   titles)
+ORDER BY 1;

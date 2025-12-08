@@ -1,0 +1,21 @@
+Напишите SQL-запрос, который выведет из таблицы titles все строки, содержащие жанр 'Sci-Fi' и заменит его на 'Фантастика'
+
+Поля к выводу:
+
+— id из таблицы titles
+
+— оригинальное название (original_title)
+
+— изначальное значение строки genres
+
+— изменённое значение строки genres (назовите его new_genres)
+
+Результат отсортируйте по возрастанию id, original_title, genres, new_genres
+
+SELECT id,
+       original_title,
+       genres,
+       regexp_replace(genres, 'Sci-Fi', 'Фантастика', 'g') as new_genres
+FROM   titles
+WHERE  genres ~ '\mSci-Fi\M'
+ORDER BY 1, 2, 3, 4;

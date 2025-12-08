@@ -1,0 +1,9 @@
+Проведите дедупликацию в запросе из предыдущего задания.
+
+SELECT DISTINCT category as role
+FROM   principals
+UNION
+SELECT DISTINCT professions
+FROM   persons
+WHERE  professions not like '%,%'
+ORDER BY role;

@@ -1,0 +1,22 @@
+Напишите SQL-запрос, который выведет средний рейтинг каждого из жанров. Для этого:
+
+— объедините таблицы titles и ratings
+
+— сгруппируйте результат объединения по полю genres
+
+— выведите строки, где фильмы с одним жанром (нет перечисления жанров)
+
+— посчитайте среднее значение поля avg_rating
+
+— выведите жанр и средний рейтинг
+
+— отсортируйте по убыванию среднего рейтинга
+
+SELECT genres,
+       avg(r.avg_rating) as avg_rating
+FROM   titles as t
+    LEFT JOIN ratings as r
+        ON t.id = r.title_id
+WHERE  genres not like '%,%'
+GROUP BY genres
+ORDER BY avg_rating desc;

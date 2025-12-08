@@ -1,0 +1,10 @@
+Напишите SQL-запрос, который объединяет таблицы titles и ratings и выводит поля original_title и year_of_start из таблицы titles и vote_cnt из таблицы ratings в порядке убывания vote_cnt. Выберите только те записи, у которых средний рейтинг (avg_rating) равен 10.
+
+SELECT t.original_title,
+       t.year_of_start,
+       r.vote_cnt
+FROM   titles as t
+    LEFT JOIN ratings as r
+        ON t.id = r.title_id
+WHERE  r.avg_rating = 10
+ORDER BY r.vote_cnt desc

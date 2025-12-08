@@ -1,0 +1,11 @@
+Напишите SQL-запрос, который вернёт имя (name), год рождения (year_of_birth), год смерти (year_of_death) и профессию (professions) из таблицы persons всех родившихся в 1960г. При этом если человек не умер - замените NULL в поле year_of_death строкой 'alive' (назовите поле также, как исходное - year_of_death).
+
+Результат отсортируйте по возрастанию name, year_of_birth, year_of_death, professions
+
+SELECT name,
+       year_of_birth,
+       coalesce(year_of_death::text, 'alive') as year_of_death,
+       professions
+FROM   persons
+WHERE  year_of_birth = 1960
+ORDER BY 1, 2, 3, 4;

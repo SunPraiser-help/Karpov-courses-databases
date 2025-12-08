@@ -1,0 +1,10 @@
+Напишите SQL-запрос, который пронумерует товары в порядке уменьшения цены. Если цена двух товаров одинаковая, сортируйте их по наименованию.
+
+Используйте таблицу items
+Поля для вывода: rn (поле с порядковым номером), name, price
+
+SELECT row_number() OVER (ORDER BY price desc, name asc) as rn,
+       name,
+       price
+FROM   items
+ORDER BY rn;

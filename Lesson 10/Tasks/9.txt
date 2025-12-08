@@ -1,0 +1,30 @@
+Мы хотим выяснить, какие товары принесли нам больше денег в каждом месяце. 
+
+Для этого посчитайте в разрезе месяца сумму, полученную за каждый товар.
+
+Пронумеруйте строки по убыванию прибыли за товар внутри каждого месяца.
+
+Например, капучино принес нам за март больше всего денег, у него номер строки - 1. На втором месте сэндвич, он под номером 2 и так далее.
+
+Напишите SQL-запрос, который выведет следующие поля:
+
+rn - номер строки по убыванию прибыли в месяц
+mnth - месяц
+item_name - название товара
+sum_by_item - сумма стоимости покупок этого товара в месяц
+Используйте таблицы items и loyal_sales
+
+Результат отсортируйте по возрастанию месяца и порядкового номера
+
+with sales_stat as (SELECT (SELECT name
+                                                FROM   items as i
+                                                WHERE  i.item_id = s.item_id) as item_name, date_trunc('month', date) as mnth, sum(our_price) as sum_by_item
+                    FROM   loyal_sales as s
+                    GROUP BY item_name, mnth)
+SELECT row_number() OVER (PARTITION BY mnth
+                          ORDER BY sum_by_item desc) as rn,
+       mnth,
+       item_name,
+       sum_by_item
+FROM   sales_stat
+ORDER BY mnth, rn;

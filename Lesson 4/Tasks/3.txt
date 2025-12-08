@@ -1,0 +1,15 @@
+Напишите SQL-запрос, который объединит в себе два запроса в одно поле с именем role:
+
+— все уникальные категории из таблицы principals
+
+— все уникальные профессии из таблицы persons за исключением тех, в которых есть запятая.
+
+Результат отсортируйте в лексикографическом порядке.
+
+SELECT DISTINCT category as role
+FROM   principals
+UNION all
+SELECT DISTINCT professions
+FROM   persons
+WHERE  professions not like '%,%'
+ORDER BY 1;

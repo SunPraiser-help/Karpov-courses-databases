@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который выводит из таблицы persons:
+
+- имя (поле name)
+
+- год текущей даты (назовите его year)
+
+- год рождения (полe year_of_birth)
+
+SELECT name,
+       extract(year
+FROM   now())::int as year, year_of_birth
+FROM   persons;

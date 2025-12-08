@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который выводит:
+
+- имя из таблицы persons
+
+- если год рождения больше или равен 2000, то значение 'young', иначе значение 'old'
+
+Присвойте расчетному полю имя age_group.
+
+SELECT name,
+       case when year_of_birth >= 2000 then 'young'
+            else 'old' end as age_group
+FROM   persons

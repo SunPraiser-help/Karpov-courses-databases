@@ -1,0 +1,13 @@
+Напишите SQL-запрос, который выведет товары, которые никогда не покупали постоянные клиенты
+
+Используйте таблицу items, выведите все поля
+Оставьте только те товары, которых нет в таблице loyal_sales
+Отсортируйте результат по возрастанию item_id
+
+SELECT item_id,
+       name,
+       price
+FROM   items
+WHERE  item_id not in (SELECT DISTINCT item_id
+                       FROM   loyal_sales)
+ORDER BY item_id;

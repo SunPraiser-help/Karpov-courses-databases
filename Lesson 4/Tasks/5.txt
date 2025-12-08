@@ -1,0 +1,22 @@
+Напишите SQL-запрос, который объединит таблицы titlesи ratings. Выведите поля:
+
+— original_title из таблицы titles
+
+— type из таблицы titles
+
+— year_of_start из таблицы titles
+
+— avg_rating из таблицы ratings
+
+— vote_cnt из таблицы ratings
+
+Результат отсортируйте по возрастанию original_title, type, year_of_start, avg_rating, vote_cnt
+
+SELECT t.original_title,
+       t.type,
+       t.year_of_start,
+       r.avg_rating,
+       r.vote_cnt
+FROM   titles as t join ratings as r
+        ON t.id = r.title_id
+ORDER BY 1, 2, 3, 4, 5;

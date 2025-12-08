@@ -1,0 +1,27 @@
+Мы хотим посмотреть список чеков, их стоимость и флаг того, постоянный ли это гость.
+
+Напишите SQL-запрос, который выведет следующие поля:
+
+check_date - дату продажи
+check_num - номер чека
+check_sum - сумма чека
+loyal_guest - признак постоянного гостя: если гость постоянный, заполните поле значением "Постоянный гость", если нет - оставьте пустым
+Используйте таблицы sales и loyal_sales
+
+Результат отсортируйте по возрастанию даты и номера чека
+
+with checks as (SELECT datetime::date as check_date,
+                       check_num,
+                       sum(price_with_discount) as check_sum
+                FROM   sales
+                GROUP BY check_date, check_num), loyal_checks as (SELECT DISTINCT card_num,
+                                                                  check_num
+                                                  FROM   loyal_sales)
+SELECT c.check_date,
+       c.check_num,
+       c.check_sum,
+       case when l.card_num is not null then 'Постоянный гость' end as loyal_guest
+FROM   checks as c
+    LEFT JOIN loyal_checks as l
+        ON c.check_num = l.check_num
+ORDER BY c.check_date, c.check_num;

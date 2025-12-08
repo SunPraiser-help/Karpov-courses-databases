@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который вернёт имя (name), год рождения (year_of_birth), год смерти (year_of_death) и профессию (professions) из таблицы persons, умерших в 2022г с профессией actor или actress.
+
+Результат отсортируйте по возрастанию name, year_of_birth, year_of_death, professions
+
+SELECT name,
+       year_of_birth,
+       year_of_death,
+       professions
+FROM   persons
+WHERE  year_of_death = 2022
+   and professions in ('actor', 'actress')
+ORDER BY 1, 2, 3, 4;

@@ -1,0 +1,39 @@
+Напишите SQL-запрос, который выведет:
+
+— название сериала (назовите поле series_name)
+
+— название эпизода (назовите поле episode_name)
+
+— идентификатор эпизода (назовите поле episode_id)
+
+— номер сезона
+
+— номер эпизода в сезоне
+
+— рейтинг этого эпизода
+
+— максимальный рейтинг эпизодов среди последних 3 эпизодов, включая текущий (назовите поле max_rating), для него партицирование сделайте по parent_id , а сортировку по season и episode;
+
+Серии с пустыми значениями сезона и эпизода показывать не нужно.
+
+Результат отсортируйте по возрастанию episode_id.
+
+with cte as (SELECT t.original_title as series_name,
+                    (SELECT t.original_title
+              FROM   titles as t
+              WHERE  t.id = e.title_id) as episode_name, e.parent_id, e.season, e.episode, r.avg_rating, e.title_id
+             FROM   episodes as e join ratings as r
+                     ON e.title_id = r.title_id join titles as t
+                     ON t.id = e.parent_id)
+SELECT series_name,
+       episode_name,
+       title_id as episode_id,
+       season,
+       episode,
+       avg_rating,
+       max(avg_rating) OVER (PARTITION BY parent_id
+                             ORDER BY season, episode rows between 2 preceding and current row) as max_rating
+FROM   cte
+WHERE  season is not null
+   and episode is not null
+ORDER BY title_id;

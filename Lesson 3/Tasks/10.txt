@@ -1,0 +1,11 @@
+Напишите запрос, который вернёт имя (name), возраст (age), приведенный к целочисленному типу, и профессию (professions) из таблицы persons,  с профессией (profession) только actor или actress, у которых указан год рождения (year_of_birth). При этом если год смерти (year_of_death) не указан - необходимо заменить его на текущий.
+
+Результат отсортируйте по возрастанию name, age, professions
+
+SELECT name,
+       coalesce(year_of_death, date_part('year', now())::int) - year_of_birth as age,
+       professions
+FROM   persons
+WHERE  professions in ('actor', 'actress')
+   and year_of_birth is not null
+ORDER BY 1, 2, 3;

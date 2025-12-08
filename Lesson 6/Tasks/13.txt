@@ -1,0 +1,14 @@
+Перепишите SQL-запрос из второго задания с использованием CTE. 
+
+Запрос выводит оригинальное название (original_title), год начала (year_of_start) и количество эпизодов произведений (ep_cnt), у которых больше 500 серий, отсортировав их по убыванию количества серий. Выводятся только те строки, которые есть в таблице titles и в сгруппированной таблице.
+
+with cte as (SELECT parent_id,
+                    count(1) as ep_cnt
+             FROM   episodes as e
+             GROUP BY parent_id having count(1) > 500)
+SELECT t.original_title,
+       t.year_of_start,
+       cte.ep_cnt
+FROM   titles as t join cte
+        ON t.id = cte.parent_id
+ORDER BY ep_cnt desc;

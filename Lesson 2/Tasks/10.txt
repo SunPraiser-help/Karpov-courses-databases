@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который выводит из таблицы titles:
+
+- поле original_title 
+
+— поле is_adult
+
+— поле is_adult, приведённое к целочисленному типу (назовите его is_adult_int)
+
+SELECT original_title,
+       is_adult,
+       is_adult::int as is_adult_int
+FROM   titles;

@@ -1,0 +1,14 @@
+Напишите SQL-запрос, который выведет из таблицы titles:
+
+— общее количество произведений в таблице titles (алиас cnt)
+
+— количество строк с типом 'tvEpisode' (алиас episode_cnt)
+
+— количество строк с типом 'movie' (алиас movie_cnt)
+
+SELECT count(1) as cnt,
+       sum(case when type = 'tvEpisode' then 1
+                else 0 end) as episode_cnt,
+       sum(case when type = 'movie' then 1
+                else 0 end) as movie_cnt
+FROM   titles;

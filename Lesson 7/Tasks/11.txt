@@ -1,0 +1,11 @@
+Напишите SQL-запрос, который выведет дни, в которые кофейня работала и сумму выручки с нарастающим итогом
+
+Используйте таблицу sales
+Для расчета выручки price_with_discount умножьте на quantity
+Поля для вывода: date, cum_revenue (приведите его в integer)
+Результат отсортируйте по дате
+
+SELECT DISTINCT datetime::date as date,
+                cast(sum(price_with_discount * quantity) OVER (ORDER BY datetime::date) as integer) as cum_revenue
+FROM   sales
+ORDER BY date;

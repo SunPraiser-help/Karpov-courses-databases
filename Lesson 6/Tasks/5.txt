@@ -1,0 +1,15 @@
+Напишите SQL-запрос, который с помощью кореллированного подзапроса выведет:
+
+— id и original_title из таблицы titles
+
+— avg_rating из таблицы ratings, относящийся к строке из titles
+
+Результат отсортируйте по возрастанию id, original_title, avg_rating
+
+SELECT id,
+       original_title,
+       (SELECT avg_rating
+ FROM   ratings as r
+ WHERE  r.title_id = t.id)
+FROM   titles as t
+ORDER BY 1, 2, 3;

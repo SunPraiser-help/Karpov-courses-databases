@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который вернёт имя (name), год рождения (year_of_birth), год смерти (year_of_death) и профессию (professions) из таблицы persons всех у кого не указан год рождения и год смерти.
+
+Результат отсортируйте по возрастанию name, year_of_birth, year_of_death, professions
+
+SELECT name,
+       year_of_birth,
+       year_of_death,
+       professions
+FROM   persons
+WHERE  year_of_birth is null
+   and year_of_death is null
+ORDER BY 1, 2, 3, 4;

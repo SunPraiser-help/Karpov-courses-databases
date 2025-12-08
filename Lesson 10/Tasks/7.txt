@@ -1,0 +1,24 @@
+Напишите SQL-запрос, который выведет следующие поля:
+
+mnth - месяц (с помощью функции date_trunc)
+total_amount - общая сумма покупок за этот месяц
+loyal_amount - сумма покупок постоянными гостями за этот месяц
+prcnt - процент покупок постоянными гостями от общей суммы покупок
+Используйте таблицы sales и loyal_sales
+
+Результат отсортируйте по возрастанию месяца
+
+with all_sales as (SELECT date_trunc('month', datetime) as mnth,
+                          sum(price_with_discount * quantity) as total_amount
+                   FROM   sales
+                   GROUP BY date_trunc('month', datetime)), loyals as (SELECT date_trunc('month', date) as mnth,
+                                                           sum(our_price * quantity) as loyal_amount
+                                                    FROM   loyal_sales
+                                                    GROUP BY date_trunc('month', date))
+SELECT a.mnth,
+       a.total_amount,
+       l.loyal_amount,
+       l.loyal_amount/a.total_amount * 100 as prcnt
+FROM   all_sales as a join loyals as l
+        ON a.mnth = l.mnth
+ORDER BY mnth;

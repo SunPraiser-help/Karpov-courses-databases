@@ -1,0 +1,15 @@
+Напишите SQL-запрос, который выведет год начала произведений из таблицы titles и их количество (алиас count) в каждом году, отсортированное в порядке возрастания, начиная с 2030 до 2000 года, не пропуская тех лет, в которые не вышло ни одного произведения.
+
+Результат отсортируйте в порядке возрастания года.
+
+with recursive date_list as (SELECT 2000 as dt UNION all
+SELECT dt + 1
+                             FROM   date_list
+                             WHERE  dt < 2030)
+SELECT dl.dt,
+       count(t.id) as count
+FROM   date_list as dl
+    LEFT JOIN titles as t
+        ON dl.dt = t.year_of_start
+GROUP BY dl.dt
+ORDER BY 1;

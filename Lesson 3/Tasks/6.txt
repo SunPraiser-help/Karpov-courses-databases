@@ -1,0 +1,5 @@
+Напишите SQL-запрос, который вернёт сотую строку в топе с максимальным количеством голосом (vote_cnt) из таблицы рейтингов ratings. 
+
+SELECT *
+FROM   ratings r
+ORDER BY vote_cnt desc offset 99 limit 1;

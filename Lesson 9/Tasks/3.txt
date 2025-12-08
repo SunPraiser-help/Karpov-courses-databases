@@ -1,0 +1,11 @@
+Напишите SQL-запрос, который с помощью рекурсии выведет все буквы от A до Z.
+
+Для того, чтобы получить следующую букву нужно применить составную функцию. Например, chr(ascii('A') + 1) вернёт B
+
+with recursive alphabet as (SELECT 'A' as letter UNION all
+SELECT chr(ascii(letter) + 1)
+                            FROM   alphabet
+                            WHERE  letter < 'Z')
+SELECT letter
+FROM   alphabet
+ORDER BY 1;

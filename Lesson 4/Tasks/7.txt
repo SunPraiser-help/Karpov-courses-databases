@@ -1,0 +1,26 @@
+Напишите SQL-запрос, который находит произведения с типом movie, у которых есть клоны с таким же original_title. Для этого объедините таблицу titles с собой по названию произведения, исключив строки, которые поджойнились сами на себя.
+
+Поля к выводу:
+
+- original_title,
+
+- type оригинала (с алиасом type_1),
+
+- type клона (с алиасом type_2),
+
+- year_of_start оригинала (с алиасом year_of_start_1),
+
+- year_of_start клона  (с алиасом year_of_start_2).
+
+Результат отсортируйте по возрастанию original_title, type_1, type_2, year_of_start_1, year_of_start_2
+
+SELECT t1.original_title,
+       t1.type as type_1,
+       t2.type as type_2,
+       t1.year_of_start as year_of_start_1,
+       t2.year_of_start as year_of_start_2
+FROM   titles as t1 join titles as t2
+        ON t1.original_title = t2.original_title and
+           t1.id != t2.id and
+           t1.type = 'movie'
+ORDER BY 1, 2, 3, 4, 5;

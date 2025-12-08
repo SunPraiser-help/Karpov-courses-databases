@@ -1,0 +1,15 @@
+Напишите SQL-запрос, который выводит:
+
+- поле popular_title из таблицы titles
+
+- поле original_title из таблицы titles
+
+- флаг, одинаковы ли эти значения (назовите его title_equality)
+
+- флаг, принимающий значение True, если длина первого поля больше длины второго поля (назовите его title_over)
+
+SELECT popular_title,
+       original_title,
+       popular_title = original_title as title_equality,
+       length(popular_title) > length(original_title) as title_over
+FROM   titles;

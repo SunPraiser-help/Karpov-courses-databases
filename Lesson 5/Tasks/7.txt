@@ -1,0 +1,10 @@
+Напишите SQL-запрос, который выведет количество живых и умерших людей из таблицы persons. Если поле year_of_death пустое, выведите alive, иначе — dead. 
+
+Назовите поля status и cnt. Результат отсортируйте по возрастанию status, cnt
+
+SELECT case when year_of_death is null then 'alive'
+            else 'dead' end as status,
+       count(1) as cnt
+FROM   persons
+GROUP BY case when year_of_death is null then 'alive' else 'dead' end
+ORDER BY 1, 2;

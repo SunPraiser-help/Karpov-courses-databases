@@ -1,0 +1,7 @@
+Напишите SQL-запрос, который выберет все уникальные значения поля type из таблицы titles
+
+Результат отсортируйте по возрастанию type
+
+SELECT DISTINCT type
+FROM   titles
+ORDER BY 1;

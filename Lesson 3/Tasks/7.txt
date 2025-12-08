@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который вернёт имя (name), год рождения (year_of_birth), год смерти (year_of_death) и профессию (professions) из таблицы persons, всех родившихся в 1990г и уже умерших.
+
+Результат отсортируйте по возрастанию name, year_of_birth, year_of_death, professions
+
+SELECT name,
+       year_of_birth,
+       year_of_death,
+       professions
+FROM   persons
+WHERE  year_of_birth = 1990
+   and year_of_death is not null
+ORDER BY 1, 2, 3, 4;

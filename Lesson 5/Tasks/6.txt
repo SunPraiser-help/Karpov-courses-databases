@@ -1,0 +1,10 @@
+Напишите SQL-запрос, который выведет количество людей в каждой из профессий из таблицы persons. Исключите тех людей, которые имеют больше одной профессии (аналогично предыдущему заданию). 
+
+Назовите расчетное поле cnt. Отсортируйте по убыванию cnt, professions
+
+SELECT professions,
+       count(1) as cnt
+FROM   persons
+WHERE  professions not like '%,%'
+GROUP BY professions
+ORDER BY cnt desc, professions desc;

@@ -1,0 +1,35 @@
+Мы хотим узнать предпочтения каждого из наших постоянных гостей на основе их покупок.
+
+Для каждой пары card_num и item_id посчитайте сумму our_price + discount  и умножьте на quantity в каждой строке. 
+
+Для каждого гостя (card_num) выберите три товара, на которые он потратил больше всего. Если у гостя есть несколько товаров с одинаковой суммой, отсортируйте их по item_id.
+
+Напишите SQL-запрос, который выведет следующие поля:
+
+card_num - номер карты
+rn - порядковый номер товара в топ-3 (от 1 до 3)
+item_name - название товара
+item_sum - общую сумму трат на него
+Используйте таблицы items и loyal_sales
+
+Результат отсортируйте по возрастанию номера карты и порядкового номера
+
+with loyal_items as (SELECT card_num,
+                            item_id,
+                            sum((our_price + discount) * quantity) as item_sum
+                     FROM   loyal_sales
+                     GROUP BY card_num, item_id), item_stat as (SELECT card_num,
+                                                  item_sum,
+                                                  row_number() OVER (PARTITION BY card_num
+                                                                     ORDER BY item_sum desc, item_id) as rn,
+                                                  (SELECT name
+                                            FROM   items as i
+                                            WHERE  i.item_id = l.item_id) as item_name
+                                           FROM   loyal_items as l)
+SELECT card_num,
+       rn,
+       item_name,
+       item_sum
+FROM   item_stat
+WHERE  rn <= 3
+ORDER BY card_num, rn;

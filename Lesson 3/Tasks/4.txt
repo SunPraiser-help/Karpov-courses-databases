@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который вернёт имя (name), год рождения (year_of_birth), год смерти (year_of_death) и профессию (professions) из таблицы persons,  родившихся в 2000 г., с именем, начинающимся с Y.
+
+Результат отсортируйте по возрастанию name, year_of_birth, year_of_death, professions
+
+SELECT name,
+       year_of_birth,
+       year_of_death,
+       professions
+FROM   persons
+WHERE  year_of_birth = 2000
+   and name like 'Y%'
+ORDER BY 1, 2, 3, 4;

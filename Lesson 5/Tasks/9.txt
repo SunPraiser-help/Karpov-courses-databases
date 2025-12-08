@@ -1,0 +1,12 @@
+Напишите SQL-запрос, который выведет жанр и сумму голосов (vote_cnt из таблицы ratings) для каждого жанра. Назовите расчетное поле sum_vote. Отсортируйте по убыванию сумм голосов. 
+
+Исключите строки, содержащие более одного жанра, из выгрузки.
+
+SELECT genres,
+       sum(r.vote_cnt) as sum_vote
+FROM   titles as t
+    LEFT JOIN ratings as r
+        ON t.id = r.title_id
+WHERE  genres not like '%,%'
+GROUP BY genres
+ORDER BY sum_vote desc;

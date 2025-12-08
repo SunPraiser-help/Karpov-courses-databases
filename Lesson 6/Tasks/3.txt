@@ -1,0 +1,13 @@
+Напишите SQL-запрос, который выведет оригинальное название (original_title), год начала (year_of_start) и количество человек в команде (com_cnt), у которых команда больше 30 человек. Для этого используйте подзапрос к таблице principals с группировкой. Выведите только строки, которые есть в таблице titles и в сгруппированной таблице.
+
+Итоговый результат отсортируйте по убыванию com_cnt и original_title.
+
+SELECT t.original_title,
+       t.year_of_start,
+       e.com_cnt
+FROM   titles as t join (SELECT title_id,
+                                count(distinct person_id) as com_cnt
+                         FROM   principals as e
+                         GROUP BY title_id having count(distinct person_id) > 30) as e
+        ON t.id = e.title_id
+ORDER BY com_cnt desc, original_title desc;

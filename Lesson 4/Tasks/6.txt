@@ -1,0 +1,8 @@
+Напишите SQL-запрос, который выведет поле title_id тех строк из таблицы ratings, для которых нет соответствия в таблице titles. Результат отсортируйте в порядке убывания.
+
+SELECT r.title_id
+FROM   ratings as r
+    LEFT JOIN titles as t
+        ON t.id = r.title_id
+WHERE  t.id is null
+ORDER BY r.title_id desc;

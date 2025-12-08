@@ -1,0 +1,9 @@
+Напишите SQL-запрос, который выводит:
+
+- поле id из таблицы titles
+
+- номер символа с первым вхождением цифры 6 в поле id из таблицы titles (назовите поле pos_numb)
+
+SELECT id,
+       position('6' in id::text) as pos_numb
+FROM   titles;

@@ -1,0 +1,9 @@
+Напишите SQL-запрос, который выводит:
+
+— поле run_time из таблицы titles
+
+— количество полных часов без минут, указанных в поле run_time (назовите это поле hours)
+
+SELECT run_time,
+       run_time/60 as hours
+FROM   titles;

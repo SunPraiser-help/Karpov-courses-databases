@@ -1,0 +1,18 @@
+Напишите SQL-запрос, который выведет следующие метрики из таблицы titles:
+
+— количество строк (назовите поле title_cnt)
+
+— минимальное время из поля run_time (назовите поле min_time)
+
+— максимальное время из поля run_time (назовите поле max_time)
+
+— среднее время из поля run_time (назовите поле avg_time)
+
+— количество произведений с пометкой для взрослых (для этого можно взять сумму поля is_adult, переведённого в int) (назовите поле adult_cnt)
+
+SELECT count(1) as title_cnt,
+       min(run_time) as min_time,
+       max(run_time) as max_time,
+       avg(run_time) as avg_time,
+       sum(is_adult::int) as adult_cnt
+FROM   titles;
